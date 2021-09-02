@@ -1,7 +1,11 @@
-.title {
+.menu {
+  margin: 1rem;
   text-align: center;
 }
 
-.menu {
-  margin: 1rem;
+.empty-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

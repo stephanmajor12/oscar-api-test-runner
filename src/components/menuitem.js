@@ -1,23 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import "../css/menuitem.css";
 
 export default function MenuItem(props) {
   const { test } = props;
   const [showMenu, setShowMenu] = useState(false);
-  const [passFails, setPassFails] = useState({});
-
-  useEffect(() => {
-    let passes = 0;
-    let fails = 0;
-    test.results.forEach((res) => {
-      if (res.status >= 200 && res.status < 300) {
-        passes++;
-      } else if (res.status >= 300) {
-        fails++;
-      }
-    });
-    setPassFails({ passes, fails });
-  }, [test]);
 
   return (
     <div key={test.id} className="menu-item">
@@ -29,8 +15,8 @@ export default function MenuItem(props) {
       >
         <h2>{new Date(test.timestamp.seconds * 1000).toLocaleString()}</h2>
         <div className="pass-fail-container">
-          <h2 className="passes info-box">Passes: {passFails.passes} </h2>
-          <h2 className="fails info-box">Fails: {passFails.fails} </h2>
+          <h2 className="passes info-box">Passes: {test.passes} </h2>
+          <h2 className="fails info-box">Fails: {test.fails} </h2>
         </div>
       </button>
       {showMenu ? (

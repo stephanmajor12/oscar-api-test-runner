@@ -8,11 +8,15 @@ export default function Menu(props) {
 
   return (
     <div className="menu">
-      <h1 className="title">Oscar API Results</h1>
+      <h1>Oscar API Endpoint Test Results</h1>
 
-      {results.map((test) => {
-        return <MenuItem key={test.id} test={test} />;
-      })}
+      {results.length ? (
+        results.map((test) => {
+          return <MenuItem key={test.id} test={test} />;
+        })
+      ) : (
+        <h2 className="empty-msg">There's nothing here...</h2>
+      )}
     </div>
   );
 }
