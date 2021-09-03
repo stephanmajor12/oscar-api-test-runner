@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import Loader from "react-loader-spinner";
 import "../css/menuitem.css";
 
 export default function MenuItem(props) {
@@ -13,11 +14,23 @@ export default function MenuItem(props) {
           showMenu ? setShowMenu(false) : setShowMenu(true);
         }}
       >
-        <h2>{new Date(test.timestamp.seconds * 1000).toLocaleString()}</h2>
-        <div className="pass-fail-container">
-          <h2 className="passes info-box">Passes: {test.passes} </h2>
-          <h2 className="fails info-box">Fails: {test.fails} </h2>
-        </div>
+        {test.results.length === 0 ? (
+          <Loader
+            className="loading-results"
+            type="Bars"
+            color="rgb(0, 0, 0)"
+            height={35}
+            width={35}
+          />
+        ) : (
+          <div className="button-contents">
+            <h2>{new Date(test.timestamp.seconds * 1000).toLocaleString()}</h2>
+            <div className="pass-fail-container">
+              <h2 className="passes info-box">Passes: {test.passes} </h2>
+              <h2 className="fails info-box">Fails: {test.fails} </h2>
+            </div>
+          </div>
+        )}
       </button>
       {showMenu ? (
         <div className="result-box">

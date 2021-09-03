@@ -12,7 +12,6 @@ import Menu from "./components/menu";
 
 function App() {
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const db = getFirestore();
@@ -20,7 +19,6 @@ function App() {
       collection(db, "test-results"),
       orderBy("timestamp", "desc")
     );
-    setLoading(true);
     onSnapshot(q, (docs) => {
       const items = [];
 
@@ -29,12 +27,8 @@ function App() {
       });
       setResults(items);
     });
-    setLoading(false);
   }, []);
 
-  if (loading) {
-    return <h1>Loading....</h1>;
-  }
   return (
     <div>
       <Menu results={results} />

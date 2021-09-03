@@ -2,6 +2,7 @@ import { React } from "react";
 import MenuItem from "./menuitem";
 
 import "../css/menu.css";
+import Loader from "react-loader-spinner";
 
 export default function Menu(props) {
   const { results } = props;
@@ -15,7 +16,13 @@ export default function Menu(props) {
           return <MenuItem key={test.id} test={test} />;
         })
       ) : (
-        <h2 className="empty-msg">There's nothing here...</h2>
+        <Loader
+          className="loader"
+          type="TailSpin"
+          color="rgb(0, 0, 0)"
+          height={90}
+          width={90}
+        />
       )}
     </div>
   );
