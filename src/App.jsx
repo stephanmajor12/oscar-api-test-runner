@@ -1,37 +1,21 @@
-import { React, useState, useEffect } from "react";
-import "./firebase"; // initialization
-import {
-  collection,
-  query,
-  orderBy,
-  getFirestore,
-  onSnapshot,
-} from "firebase/firestore";
+import { React } from "react";
 
-import Menu from "./components/menu";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import ScheduledResults from "./components/ScheduledTestResults";
+import IndependentResults from "./components/IndependentTestResults";
+import Nav from "./components/Nav/nav";
 
 function App() {
-  const [results, setResults] = useState([]);
-
-  useEffect(() => {
-    const db = getFirestore();
-    const q = query(
-      collection(db, "test-results"),
-      orderBy("timestamp", "desc")
-    );
-    onSnapshot(q, (docs) => {
-      const items = [];
-
-      docs.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setResults(items);
-    });
-  }, []);
-
   return (
     <div>
-      <Menu results={results} />
+      <Router>
+        <Nav />
+        <Switch>
+          <Route exact path="/scheduled" render={() => <ScheduledResults />} />
+          <Route exact path="/" render={() => <IndependentResults />} />
+        </Switch>
+      </Router>
     </div>
   );
 }

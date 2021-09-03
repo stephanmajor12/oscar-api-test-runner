@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import Loader from "react-loader-spinner";
-import "../css/menuitem.css";
+import "./css/menuitem.css";
 
 export default function MenuItem(props) {
   const { test } = props;

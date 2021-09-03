@@ -1,7 +1,7 @@
 import { React } from "react";
 import MenuItem from "./menuitem";
 
-import "../css/menu.css";
+import "./css/menu.css";
 import Loader from "react-loader-spinner";
 
 export default function Menu(props) {
