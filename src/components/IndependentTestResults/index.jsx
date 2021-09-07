@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useRef } from "react";
 import ApiItem from "./apiitem";
 
 const apis = [
@@ -94,13 +94,31 @@ const apis = [
 ];
 
 export default function IndependentResults() {
+  const testRefs = useRef([]);
+  const setCallbacks = function (callback) {
+    testRefs.current.push(callback);
+  };
+
   return (
     <div className="menu">
       <h1>Oscar API Individual Test Routes</h1>
 
+      <button
+        onClick={() => {
+          console.log(testRefs.current.length);
+
+          testRefs.current.forEach((item, i) => {
+            console.log(i, item);
+            item();
+          });
+        }}
+      >
+        Test all
+      </button>
+
       {apis.map((api, i) => {
         console.log(api);
-        return <ApiItem key={i} api={api} />;
+        return <ApiItem key={i} api={api} callBack={setCallbacks} />;
       })}
     </div>
   );

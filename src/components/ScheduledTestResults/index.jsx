@@ -9,11 +9,11 @@ import {
 } from "firebase/firestore";
 
 import Menu from "./menu";
-// import Nav from "../Nav/nav.jsx";
 
 function ScheduledResults() {
   const [results, setResults] = useState([]);
 
+  // Load realtime updates from firebase and put them in state
   useEffect(() => {
     const db = getFirestore();
     const q = query(

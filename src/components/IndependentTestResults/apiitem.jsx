@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 const apiVersion = [
@@ -15,14 +15,16 @@ const apiVersion = [
 const currentApi = apiVersion[0];
 
 export default function ApiItem(props) {
-  const { api } = props;
+  const { api, callBack } = props;
   const [response, setResponse] = useState([]);
 
-  const queryAPI = function (apiInfo) {
+  // use callback so that component doesn't re-render
+  // when callback gets registered
+  const queryAPI = useCallback(() => {
     axios({
-      method: apiInfo.method,
-      url: currentApi.endpointURL + apiInfo.url,
-      data: apiInfo.body,
+      method: api.method,
+      url: currentApi.endpointURL + api.url,
+      data: api.body,
       //   headers: auth["headers"],
     })
       .then((res) => {
@@ -33,7 +35,11 @@ export default function ApiItem(props) {
         setResponse(err);
         console.log(err);
       });
-  };
+  }, [api]);
+
+  useEffect(() => {
+    callBack(queryAPI);
+  }, [callBack, queryAPI]);
 
   return (
     <div className="">
