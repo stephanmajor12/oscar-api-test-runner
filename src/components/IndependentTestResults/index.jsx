@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import ApiItem from "./apiitem";
 
 const apis = [
@@ -94,15 +94,10 @@ const apis = [
 ];
 
 export default function IndependentResults() {
-  //   useEffect(() => {
-  //     apis.forEach((api) => {
-  //       console.log(api);
-  //     });
-  //   }, []);
-
   return (
-    <div>
-      <h1>Oscar API Test Individual Routes</h1>
+    <div className="menu">
+      <h1>Oscar API Individual Test Routes</h1>
+
       {apis.map((api, i) => {
         console.log(api);
         return <ApiItem key={i} api={api} />;

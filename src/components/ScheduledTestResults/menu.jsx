@@ -9,7 +9,7 @@ export default function Menu(props) {
 
   return (
     <div className="menu">
-      <h1>Oscar API Endpoint Test Results</h1>
+      <h1>Oscar API Scheduled Test Results</h1>
 
       {results.length ? (
         results.map((test) => {

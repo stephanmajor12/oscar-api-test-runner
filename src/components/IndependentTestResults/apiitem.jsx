@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import axios from "axios";
 
 const apiVersion = [
@@ -35,11 +35,8 @@ export default function ApiItem(props) {
       });
   };
 
-  //   useEffect(() => {
-  //     console.log(api);
-  //   }, []);
   return (
-    <div>
+    <div className="">
       <p>Api: {api.url}</p>
       <p>Method: {api.method}</p>
       <button

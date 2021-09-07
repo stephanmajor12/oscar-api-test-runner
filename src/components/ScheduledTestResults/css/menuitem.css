@@ -1,6 +1,9 @@
 h4 {
   margin: 0;
 }
+h2 {
+  font-size: large;
+}
 p {
   margin: 0;
 }
@@ -8,6 +11,12 @@ p {
 .menu-item {
   margin: 1rem;
 }
+
+.no-results {
+  background-color: rgb(214, 214, 214);
+  padding: 0 1rem;
+}
+
 .button-menu {
   width: 100%;
   border: none;
