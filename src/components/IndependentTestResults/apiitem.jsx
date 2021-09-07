@@ -1,5 +1,6 @@
 import { React, useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import "./css/listitem.css";
 
 const apiVersion = [
   {
@@ -17,6 +18,7 @@ const currentApi = apiVersion[0];
 export default function ApiItem(props) {
   const { api, callBack } = props;
   const [response, setResponse] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
 
   // use callback so that component doesn't re-render
   // when callback gets registered
@@ -32,8 +34,11 @@ export default function ApiItem(props) {
         console.log(res);
       })
       .catch((err) => {
-        setResponse(err);
+        setResponse(err.response);
         console.log(err);
+      })
+      .then(() => {
+        setShowMenu(true);
       });
   }, [api]);
 
@@ -42,18 +47,41 @@ export default function ApiItem(props) {
   }, [callBack, queryAPI]);
 
   return (
-    <div className="">
-      <p>Api: {api.url}</p>
-      <p>Method: {api.method}</p>
+    <div className="list-item">
       <button
+        className="button-menu"
         onClick={() => {
-          queryAPI(api);
+          showMenu ? setShowMenu(false) : setShowMenu(true);
         }}
       >
-        Test
+        <div className="button-contents">
+          <h2>{api.url}</h2>
+          {response.status ? (
+            <div className="pass-fail-container">
+              <h2 className="passes info-box">{response.status} </h2>
+            </div>
+          ) : null}
+        </div>
       </button>
 
-      {response.length !== 0 ? <p>{JSON.stringify(response)}</p> : null}
+      {showMenu ? (
+        <div className="test-options">
+          <p>Method: {api.method}</p>
+          <button
+            onClick={() => {
+              setResponse([]);
+              queryAPI(api);
+            }}
+          >
+            Test
+          </button>
+          <div>
+            <p>Status: {JSON.stringify(response.status)}</p>
+            <p>Response: {JSON.stringify(response)}</p>
+            <p>Data: {JSON.stringify(response.data)}</p>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

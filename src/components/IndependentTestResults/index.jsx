@@ -108,7 +108,6 @@ export default function IndependentResults() {
           console.log(testRefs.current.length);
 
           testRefs.current.forEach((item, i) => {
-            console.log(i, item);
             item();
           });
         }}
@@ -117,7 +116,6 @@ export default function IndependentResults() {
       </button>
 
       {apis.map((api, i) => {
-        console.log(api);
         return <ApiItem key={i} api={api} callBack={setCallbacks} />;
       })}
     </div>

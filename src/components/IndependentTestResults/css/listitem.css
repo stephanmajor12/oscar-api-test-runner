@@ -1,0 +1,11 @@
+.list-item {
+  margin: 1rem;
+}
+
+.test-options {
+  border: 2px solid rgb(214, 214, 214);
+  border-style: none solid solid solid;
+  padding: 1rem;
+  text-align: left;
+  overflow-wrap: break-word;
+}
