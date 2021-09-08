@@ -43,9 +43,14 @@ export default function ApiItem(props) {
       });
   }, [api]);
 
+  const expandContract = useCallback((isExpanded) => {
+    console.log(isExpanded);
+    isExpanded ? setShowMenu(false) : setShowMenu(true);
+  }, []);
+
   useEffect(() => {
-    callBack(queryAPI);
-  }, [callBack, queryAPI]);
+    callBack({ queryAPI, expandContract });
+  }, [callBack, queryAPI, expandContract]);
 
   return (
     <div className="list-item">
