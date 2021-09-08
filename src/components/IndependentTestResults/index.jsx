@@ -1,5 +1,6 @@
 import { React, useCallback, useRef, useState } from "react";
 import ApiItem from "./apiitem";
+import "./css/button.css";
 
 const apis = [
   // OTHER
@@ -110,6 +111,7 @@ export default function IndependentResults() {
 
       <div>
         <button
+          className={"button"}
           onClick={() => {
             console.log("Test refs length:", testRefs.current.length);
 
@@ -122,6 +124,7 @@ export default function IndependentResults() {
           Test all
         </button>
         <button
+          className={"button"}
           onClick={() => {
             expanded ? setExpanded(false) : setExpanded(true);
             expandRefs.current.forEach((expand, i) => {
@@ -129,7 +132,7 @@ export default function IndependentResults() {
             });
           }}
         >
-          {expanded ? <p>Collapse All</p> : <p>Expand All</p>}
+          {expanded ? <p>Collapse All⤊</p> : <p>Expand All⤋</p>}
         </button>
       </div>
       {apis.map((api, i) => {
