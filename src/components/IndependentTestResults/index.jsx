@@ -1,4 +1,4 @@
-import { React, useRef } from "react";
+import { React, useCallback, useRef, useState } from "react";
 import ApiItem from "./apiitem";
 
 const apis = [
@@ -94,29 +94,46 @@ const apis = [
 ];
 
 export default function IndependentResults() {
-  const testRefs = useRef([]);
-  const setCallbacks = function (callback) {
-    testRefs.current.push(callback);
-  };
+  const [expanded, setExpanded] = useState(false);
 
+  const testRefs = useRef([]);
+  const expandRefs = useRef([]);
+  const setCallback = useCallback((callback) => {
+    testRefs.current.push(callback.queryAPI);
+    expandRefs.current.push(callback.expandContract);
+  }, []);
+
+  console.log("App Rerender");
   return (
     <div className="menu">
       <h1>Oscar API Individual Test Routes</h1>
 
-      <button
-        onClick={() => {
-          console.log(testRefs.current.length);
+      <div>
+        <button
+          onClick={() => {
+            console.log("Test refs length:", testRefs.current.length);
 
-          testRefs.current.forEach((item, i) => {
-            item();
-          });
-        }}
-      >
-        Test all
-      </button>
-
+            testRefs.current.forEach((test, i) => {
+              test();
+            });
+            setExpanded(true);
+          }}
+        >
+          Test all
+        </button>
+        <button
+          onClick={() => {
+            expanded ? setExpanded(false) : setExpanded(true);
+            expandRefs.current.forEach((expand, i) => {
+              expand(expanded);
+            });
+          }}
+        >
+          {expanded ? <p>Collapse All</p> : <p>Expand All</p>}
+        </button>
+      </div>
       {apis.map((api, i) => {
-        return <ApiItem key={i} api={api} callBack={setCallbacks} />;
+        return <ApiItem key={i} api={api} callBack={setCallback} />;
       })}
     </div>
   );
