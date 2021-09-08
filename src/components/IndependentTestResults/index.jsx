@@ -1,6 +1,7 @@
 import { React, useCallback, useRef, useState } from "react";
 import ApiItem from "./apiitem";
 import "./css/button.css";
+import "./css/menu.css";
 
 const apis = [
   // OTHER
@@ -109,7 +110,7 @@ export default function IndependentResults() {
     <div className="menu">
       <h1>Oscar API Individual Test Routes</h1>
 
-      <div>
+      <div className={"flex-row-right"}>
         <button
           className={"button"}
           onClick={() => {

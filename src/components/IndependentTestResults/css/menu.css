@@ -2,3 +2,8 @@
   margin: 1rem;
   text-align: center;
 }
+
+.flex-row-right {
+  display: flex;
+  justify-content: right;
+}
