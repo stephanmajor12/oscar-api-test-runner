@@ -106,6 +106,7 @@ export default function IndependentResults() {
       <button
         onClick={() => {
           console.log(testRefs.current.length);
+          console.log(testRefs.current.length);
 
           testRefs.current.forEach((item, i) => {
             item();
