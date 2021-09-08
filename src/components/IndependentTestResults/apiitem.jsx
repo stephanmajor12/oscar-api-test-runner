@@ -1,5 +1,6 @@
 import { React, useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import StatusBox from "../statusbox";
 import "./css/listitem.css";
 
 const apiVersion = [
@@ -56,11 +57,9 @@ export default function ApiItem(props) {
       >
         <div className="button-contents">
           <h2>{api.url}</h2>
-          {response.status ? (
-            <div className="pass-fail-container">
-              <h2 className="passes info-box">{response.status} </h2>
-            </div>
-          ) : null}
+          <div className="pass-fail-container">
+            <StatusBox response={response} />
+          </div>
         </div>
       </button>
 

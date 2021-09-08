@@ -1,0 +1,19 @@
+nav {
+  background-color: cornflowerblue;
+  position: sticky;
+  top: 0;
+  display: flex;
+}
+
+nav h1 {
+  color: azure;
+  margin: 1rem;
+}
+
+.link-item {
+  text-decoration: none;
+}
+
+.link-item:hover {
+  background-color: rgb(84, 136, 231);
+}
