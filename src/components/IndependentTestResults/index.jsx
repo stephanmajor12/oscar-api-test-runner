@@ -98,9 +98,13 @@ const apis = [
 export default function IndependentResults() {
   const [expanded, setExpanded] = useState(false);
 
+  // Create array of useRefs
   const testRefs = useRef([]);
   const expandRefs = useRef([]);
+
+  // useCallback so that component doesn't reload on setCallback updating
   const setCallback = useCallback((callback) => {
+    // Register all functions by pushing them into our useRef array
     testRefs.current.push(callback.queryAPI);
     expandRefs.current.push(callback.expandContract);
   }, []);
@@ -111,12 +115,14 @@ export default function IndependentResults() {
       <h1>Oscar API Individual Test Routes</h1>
 
       <div className={"flex-row-right"}>
+        {/* // The Test All button calls each registered function: */}
         <button
           className={"button"}
           onClick={() => {
             console.log("Test refs length:", testRefs.current.length);
 
-            testRefs.current.forEach((test, i) => {
+            // Call each function in the useRef array (created in child component)
+            testRefs.current.forEach((test) => {
               test();
             });
             setExpanded(true);
@@ -124,11 +130,12 @@ export default function IndependentResults() {
         >
           Test all
         </button>
+
         <button
           className={"button"}
           onClick={() => {
             expanded ? setExpanded(false) : setExpanded(true);
-            expandRefs.current.forEach((expand, i) => {
+            expandRefs.current.forEach((expand) => {
               expand(expanded);
             });
           }}
