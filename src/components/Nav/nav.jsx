@@ -1,28 +1,43 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 import "./css/nav.css";
 import "./css/button.css";
 
-export default function Nav() {
+export default function Nav(props) {
   const [user, setUser] = useState();
+  const { setToken } = props;
   const login = function () {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
+        const token = credential.idToken;
         // The signed-in user info.
         const user = result.user;
         // ...
 
+        console.log("credential:", credential);
         console.log("token:", token);
         console.log("user:", user);
         // console.log(localStorage.getItem("rememberMe"));
         setUser(user.email);
+        setToken(token);
+
+        //return
+        axios
+          .post("https://kennedy-dev1.gojitech.systems/api/v1/login", {
+            token: token,
+            // providerNo: "8",
+          })
+          .then((res) => {
+            console.log(res);
+          });
       })
       .catch((error) => {
         // Handle Errors here.

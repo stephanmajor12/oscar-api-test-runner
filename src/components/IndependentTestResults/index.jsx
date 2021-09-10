@@ -95,7 +95,8 @@ const apis = [
   },
 ];
 
-export default function IndependentResults() {
+export default function IndependentResults(props) {
+  const { token } = props;
   const [expanded, setExpanded] = useState(false);
 
   // Create array of useRefs
@@ -132,7 +133,7 @@ export default function IndependentResults() {
         </button>
 
         <button
-          className={"button"}
+          className={"arrow-button"}
           onClick={() => {
             expanded ? setExpanded(false) : setExpanded(true);
             expandRefs.current.forEach((expand) => {
@@ -140,11 +141,13 @@ export default function IndependentResults() {
             });
           }}
         >
-          {expanded ? <p>Collapse All⤊</p> : <p>Expand All⤋</p>}
+          {expanded ? <p>▲</p> : <p>▼</p>}
         </button>
       </div>
       {apis.map((api, i) => {
-        return <ApiItem key={i} api={api} callBack={setCallback} />;
+        return (
+          <ApiItem key={i} api={api} callBack={setCallback} token={token} />
+        );
       })}
     </div>
   );
