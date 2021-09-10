@@ -21,10 +21,6 @@ export default function ApiItem(props) {
   const [response, setResponse] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
-
   // use callback so that component doesn't re-render
   // when callback gets registered
   const queryAPI = useCallback(() => {

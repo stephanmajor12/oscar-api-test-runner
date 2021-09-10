@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import axios from "axios";
+// import axios from "axios";
 
 import "./css/nav.css";
 import "./css/button.css";
@@ -20,7 +20,6 @@ export default function Nav(props) {
         const token = credential.idToken;
         // The signed-in user info.
         const user = result.user;
-        // ...
 
         console.log("credential:", credential);
         console.log("token:", token);
@@ -29,15 +28,14 @@ export default function Nav(props) {
         setUser(user.email);
         setToken(token);
 
-        //return
-        axios
-          .post("https://kennedy-dev1.gojitech.systems/api/v1/login", {
-            token: token,
-            // providerNo: "8",
-          })
-          .then((res) => {
-            console.log(res);
-          });
+        // axios
+        //   .post("https://kennedy-dev1.gojitech.systems/api/v1/login", {
+        //     token: token,
+        //     // providerNo: "8",
+        //   })
+        //   .then((res) => {
+        //     console.log(res);
+        //   });
       })
       .catch((error) => {
         // Handle Errors here.
