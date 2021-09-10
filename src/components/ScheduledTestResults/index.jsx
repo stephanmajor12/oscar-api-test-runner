@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import "./firebase"; // initialization
+import "./firebase"; // initialize firebase
 import {
   collection,
   query,
@@ -14,12 +14,18 @@ function ScheduledResults() {
   const [results, setResults] = useState([]);
 
   // Load realtime updates from firebase and put them in state
+  // React useEffect so that it sets up this process only once on component load
   useEffect(() => {
+    // Get database reference
     const db = getFirestore();
+
+    // Query specific collection and order results
     const q = query(
       collection(db, "test-results"),
       orderBy("timestamp", "desc")
     );
+
+    // Re-load collection when data changes, set in state
     onSnapshot(q, (docs) => {
       const items = [];
 

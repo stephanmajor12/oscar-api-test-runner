@@ -3,6 +3,7 @@ nav {
   position: sticky;
   top: 0;
   display: flex;
+  justify-content: space-between;
 }
 
 nav h1 {
@@ -16,4 +17,8 @@ nav h1 {
 
 .link-item:hover {
   background-color: rgb(84, 136, 231);
+}
+
+.float-left {
+  display: flex;
 }

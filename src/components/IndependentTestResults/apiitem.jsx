@@ -17,7 +17,7 @@ const apiVersion = [
 const currentApi = apiVersion[0];
 
 export default function ApiItem(props) {
-  const { api, callBack } = props;
+  const { api, callBack, token } = props;
   const [response, setResponse] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -28,20 +28,23 @@ export default function ApiItem(props) {
       method: api.method,
       url: currentApi.endpointURL + api.url,
       data: api.body,
-      //   headers: auth["headers"],
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         setResponse(res);
         console.log(res);
       })
       .catch((err) => {
-        setResponse(err.response);
+        if (err.response) setResponse(err.response);
+        else return null;
         console.log(err);
       })
       .then(() => {
         setShowMenu(true);
       });
-  }, [api]);
+  }, [api, token]);
 
   const expandContract = useCallback((isExpanded) => {
     console.log(isExpanded);
