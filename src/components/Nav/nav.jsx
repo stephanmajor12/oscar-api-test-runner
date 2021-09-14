@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-// import axios from "axios";
+import axios from "axios";
 
 import "./css/nav.css";
 import "./css/button.css";
@@ -12,7 +12,7 @@ export default function Nav(props) {
   const login = function () {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
-
+    const userDetails = document.getElementById('userDetails');
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -28,14 +28,14 @@ export default function Nav(props) {
         setUser(user.email);
         setToken(token);
 
-        // axios
-        //   .post("https://kennedy-dev1.gojitech.systems/api/v1/login", {
-        //     token: token,
-        //     // providerNo: "8",
-        //   })
-        //   .then((res) => {
-        //     console.log(res);
-        //   });
+        axios
+          .post("https://kennedy-staging1.gojitech.systems/", {
+            token: user.email,
+            // providerNo: "8",
+          })
+          .then((res) => {
+            console.log(res);
+          });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -48,6 +48,12 @@ export default function Nav(props) {
         // ...
         console.log(errorCode, errorMessage, email, credential);
       });
+      auth.onAuthStateChanged(user => {
+        if(user) {
+          userDetails.innerHTML = `<h3>Hello ${user.displayName}!</h3> <p>Value: ${user.accessToken}</p>`;
+        }
+      }
+      )
   };
 
   return (
@@ -60,6 +66,8 @@ export default function Nav(props) {
           <h1>Scheduled Results</h1>
         </Link>
       </div>
+      <div id="userDetails"></div>
+      <section id="whenSigned">
       {user ? (
         <h1>{user}</h1>
       ) : (
@@ -67,6 +75,7 @@ export default function Nav(props) {
           <h1>Login</h1>
         </button>
       )}
+      </section>
     </nav>
   );
 }

@@ -1,5 +1,6 @@
 import { React, useCallback, useRef, useState } from "react";
 import ApiItem from "./apiitem";
+
 import "./css/button.css";
 import "./css/menu.css";
 
@@ -8,11 +9,12 @@ const apis = [
   { method: "get", url: "/api/v1/status" },
 
   // OSCAR REST APIS
-  { method: "get", url: "/api/v1/oscarrest/providers" },
-  { method: "get", url: "/api/v1/oscarrest/notes/1" },
+  { method: "get", url: "/api/v1/oscarrest/providers", Authorization: ""},
+  { method: "get", url: "/api/v1/oscarrest/notes/1", Authorization: "vNVBLdlQiXe8Arxi5Qv63QRF1XS2"},
   {
-    method: "post",
+    method: "get",
     url: "/api/v1/oscar/prescriptions",
+    Authorization: "",
     body: [
       {
         demographicNo: 0,
@@ -48,13 +50,16 @@ const apis = [
       },
     ],
   },
-  { method: "get", url: "/api/v1/oscarrest/patients" },
+  { 
+    method: "get", 
+    url: "/api/v1/oscarrest/patients"
+   },
   { method: "get", url: "/api/v1/oscarrest/auth" },
 
   // PATIENTS
   { method: "get", url: "/api/v1/oscar/patients" },
   {
-    method: "post",
+    method: "get",
     url: "/api/v1/oscar/patients",
     body: {
       firstName: "James",
@@ -93,10 +98,10 @@ const apis = [
     method: "get",
     url: "/api/v1/oscar/patients/14/labResults",
   },
+  
 ];
 
 export default function IndependentResults(props) {
-  const { token } = props;
   const [expanded, setExpanded] = useState(false);
 
   // Create array of useRefs
@@ -146,7 +151,7 @@ export default function IndependentResults(props) {
       </div>
       {apis.map((api, i) => {
         return (
-          <ApiItem key={i} api={api} callBack={setCallback} token={token} />
+          <ApiItem key={i} api={api} callBack={setCallback} token={"UDE2Pv0QNiV38c3yQHP2hprBYOG3"} />
         );
       })}
     </div>
